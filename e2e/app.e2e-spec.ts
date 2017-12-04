@@ -1,4 +1,5 @@
 import { TodoNgFirebasePage } from './app.po';
+import { browser } from 'protractor';
 
 
 describe('App', () => {
@@ -8,8 +9,12 @@ describe('App', () => {
     page = new TodoNgFirebasePage();
   });
 
-  it('should display welcome message', () => {
-    page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Todo Angular Firebase');
+  it('should create todo-items', async () => {
+    // browser.ignoreSynchronization = true;
+    await page.navigateTo();
+    await page.signInAnynymous()
+    await page.createItem('Item 1');
+    await page.createItem('item 2');
+    expect(page.getItemCount()).toEqual(2);
   });
 });
